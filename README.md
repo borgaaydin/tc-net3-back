@@ -3,7 +3,7 @@
 ## Install
 `yarn install`
 or
-`npm instqll`
+`npm install`
 
 ## Start
 ### Make sure to run mongodb before use
