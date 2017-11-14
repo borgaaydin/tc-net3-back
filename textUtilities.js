@@ -36,18 +36,18 @@ function dataBaseCourseModel(timetable) {
     timetable.forEach(function (t) {
         var elements = t.split(":");
         var cours = {
-            "Year": elements[0],
-            "Subject": getSubject(elements[1]),
-            "Type": getType(elements[2]),
-            "Number": elements[3],
-            "Group": elements[4],
-            "Date": elements[5],
+            "year": elements[0],
+            "subject": getSubject(elements[1]),
+            "type": getType(elements[2]),
+            "number": elements[3],
+            "group": elements[4],
+            "date": elements[5],
             "startTime": elements[6],
             "endTime": elements[7],
-            "Room": getRoom(elements[8]),
-            "Professor": getProf(elements[9]),
-            "Absent": [],
-            "Present": []
+            "room": getRoom(elements[8]),
+            "professor": getProf(elements[9]),
+            "absent": [],
+            "present": []
         };
         coursList.push(cours);
     });
