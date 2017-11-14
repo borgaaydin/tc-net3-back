@@ -14,7 +14,17 @@ function getType(line){
 }
 
 function getRoom(line) {
-    return line.split(/^[0-9]+-/)[1].split(" - ")
+    var startWithNumberRegex =  new RegExp("^[0-9]");
+    var room = "";
+
+    if (startWithNumberRegex.test(line))
+        if (line === "0000000")
+            room = "undefined";
+        else room = line.split(/^[0-9]+-/)[1].split(" - ");
+
+    else room = line;
+
+    return room
 }
 
 function getProf(line) {
