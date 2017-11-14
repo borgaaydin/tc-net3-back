@@ -1,6 +1,6 @@
 ﻿{
     "connectionString": "mongodb://localhost:27017/mean-angular2-registration-login-example",
-    "absenceDataBase": "mongodb://localhost:27017/absence-manager",
+    "absenceDataBase": "mongodb://localhost:27017/attendance-manager",
     "apiUrl": "http://localhost:4000",
     "secret": "myVerySecretText"
 }

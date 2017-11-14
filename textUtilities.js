@@ -2,8 +2,7 @@ function getUrlContent(url) {
     var req = new XMLHttpRequest();
     req.open("Get", url, false);
     req.send(null);
-    var content = req.responseText;
-    return content;
+    return req.responseText;
 }
 
 function getSubject(line) {
@@ -22,7 +21,7 @@ function getProf(line) {
     return line.split(/[\[\]]/)[1].split(", ")
 }
 
-function getTimeTabe() {
+function getTimetable() {
     var url = "https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp";
     var content = getUrlContent(url);
     var pre = content.split("pre")[1];
@@ -32,9 +31,9 @@ function getTimeTabe() {
     return time_table;
 }
 
-function dataBaseCoursModel(time_table) {
+function dataBaseCourseModel(timetable) {
     var coursList = [];
-    time_table.forEach(function (t) {
+    timetable.forEach(function (t) {
         var elements = t.split(":");
         var cours = {
             "Year": elements[0],
@@ -43,8 +42,8 @@ function dataBaseCoursModel(time_table) {
             "Number": elements[3],
             "Group": elements[4],
             "Date": elements[5],
-            "BeginingHour": elements[6],
-            "EndingHour": elements[7],
+            "startTime": elements[6],
+            "endTime": elements[7],
             "Room": getRoom(elements[8]),
             "Professor": getProf(elements[9]),
             "Absent": [],
