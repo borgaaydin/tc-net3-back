@@ -16,12 +16,10 @@ function getType(line){
 function getRoom(line) {
     var startWithNumberRegex =  new RegExp("^[0-9]");
     var room = "";
-
     if (startWithNumberRegex.test(line))
         if (line === "0000000")
             room = "undefined";
         else room = line.split(/^[0-9]+-/)[1].split(" - ");
-
     else room = line;
 
     return room
@@ -29,6 +27,17 @@ function getRoom(line) {
 
 function getProf(line) {
     return line.split(/[\[\]]/)[1].split(", ")
+}
+
+function getYearAndGroup(yearLine, groupLine) {
+    var groups = [groupLine];
+    if (groupLine === "0") groups.push("1", "2", "3");
+    if (yearLine.includes("A")){
+        yearLine = yearLine[0];
+        groups = ["A"];
+    }
+
+    return {year: yearLine, group: groups}
 }
 
 function getTimetable() {
@@ -46,11 +55,11 @@ function dataBaseCourseModel(timetable) {
     timetable.forEach(function (t) {
         var elements = t.split(":");
         var cours = {
-            "year": elements[0],
+            "year": getYearAndGroup(elements[0], elements[4]).year,
             "subject": getSubject(elements[1]),
             "type": getType(elements[2]),
             "number": elements[3],
-            "group": elements[4],
+            "group": getYearAndGroup(elements[0], elements[4]).group,
             "date": elements[5],
             "startTime": elements[6],
             "endTime": elements[7],
@@ -59,7 +68,8 @@ function dataBaseCourseModel(timetable) {
             "absent": [],
             "present": []
         };
-        coursList.push(cours);
+
+        if (Date.parse(cours.date) > Date.now()) coursList.push(cours);
     });
     return coursList;
 }
@@ -80,3 +90,26 @@ cours = {
     "Absent": ["Toto", "Léo", "Borga"],
     "Present": ["Pierre"]
 };*/
+
+//Enable requiring thoses functions
+module.exports = {
+    getCourses: dataBaseCourseModel(),
+    getTimeTable: getTimetable(),
+    getYearAndGroup: getYearAndGroup(),
+    getProf: getProf(),
+    getRoom: getRoom(),
+    getType: getType(),
+    getSubject: getSubject(),
+    getUrlContent: getUrlContent()
+};
+
+function search(myArray, typeKey, groupKey, yearKey){
+    var results = [];
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].group.includes(groupKey) && myArray[i].type === typeKey &&
+        myArray[i].year === yearKey) {
+            results.push(myArray[i]);
+        }
+    }
+    return results
+}
