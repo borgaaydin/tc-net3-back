@@ -31,6 +31,7 @@ function authenticate(username, password) {
                 username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                isTeacher: user.isTeacher,
                 token: jwt.sign({ sub: user._id }, config.secret)
             });
         } else {
@@ -145,11 +146,19 @@ function update(_id, userParam) {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
             username: userParam.username,
+            isTeacher: userParam.isTeacher,
         };
 
         // update password if it was entered
         if (userParam.password) {
             set.hash = bcrypt.hashSync(userParam.password, 10);
+        }
+
+        // update trigram or group
+        if (userParam.isTeacher == true) {
+            set.trigram = userParam.trigram;
+        } else {
+            set.group = userParam.group;
         }
 
         db.users.update(
