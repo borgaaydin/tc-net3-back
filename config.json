@@ -2,5 +2,10 @@
     "connectionString": "mongodb://localhost:27017/tc-net3-users",
     "absenceDataBase": "mongodb://localhost:27017/attendance-manager",
     "apiUrl": "http://localhost:4000",
-    "secret": "myVerySecretText"
+    "secret": "myVerySecretText",
+    "permissions": [
+        "status",
+        "user:read",
+        "user:write"
+    ]
 }

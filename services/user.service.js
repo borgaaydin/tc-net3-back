@@ -24,7 +24,7 @@ function authenticate(username, password) {
     db.users.findOne({ username: username }, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
-        if (user && bcrypt.compareSync(password, user.hash)) {
+        if (user && bcrypt.compareSync(password, user.hash) && !user.isTeacher) {
             // authentication successful
             deferred.resolve({
                 _id: user._id,
@@ -32,9 +32,21 @@ function authenticate(username, password) {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 isTeacher: user.isTeacher,
-                token: jwt.sign({ sub: user._id }, config.secret)
+                token: jwt.sign({ sub: user._id}, config.secret)
             });
-        } else {
+        } else if(user && bcrypt.compareSync(password, user.hash) && user.isTeacher) {
+            // authentication successful for a prof
+            deferred.resolve({
+                _id: user._id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                isTeacher: user.isTeacher,
+                token: jwt.sign({ sub: user._id, scope: "ens" }, config.secret)
+            });
+        }
+
+        else {
             // authentication failed
             deferred.resolve();
         }
@@ -186,4 +198,8 @@ function _delete(_id) {
         });
 
     return deferred.promise;
+}
+
+function getCourseList() {
+    return courses;
 }

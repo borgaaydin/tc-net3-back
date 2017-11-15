@@ -1,12 +1,16 @@
 ﻿var config = require('config.json');
 var express = require('express');
 var router = express.Router();
+var guard = require('express-jwt-permissions')({
+    permissionsProperty: 'scope'
+});
+
 var userService = require('services/user.service');
 
 // routes
 router.post('/authenticate', authenticate);
 router.post('/register', register);
-router.get('/', getAll);
+router.get('/', guard.check(['ens']), getAll);
 router.get('/current', getCurrent);
 router.put('/:_id', update);
 router.delete('/:_id', _delete);
