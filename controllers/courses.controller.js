@@ -8,7 +8,7 @@ var guard = require('express-jwt-permissions')({
 var courseService = require('services/course.service');
 
 // routes
-router.get('/courses', guard.check(['ens']), getMyCourses);
+router.get('/', guard.check(['ens']), getMyCourses);
 
 module.exports = router;
 

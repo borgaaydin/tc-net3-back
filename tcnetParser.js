@@ -92,16 +92,16 @@ cours = {
 };*/
 
 //Enable requiring thoses functions
-module.exports = {
-    getCourses: dataBaseCourseModel(),
-    getTimeTable: getTimetable(),
-    getYearAndGroup: getYearAndGroup(),
-    getProf: getProf(),
-    getRoom: getRoom(),
-    getType: getType(),
-    getSubject: getSubject(),
-    getUrlContent: getUrlContent()
-};
+// module.exports = {
+//     getCourses: dataBaseCourseModel(),
+//     getTimeTable: getTimetable(),
+//     getYearAndGroup: getYearAndGroup(),
+//     getProf: getProf(),
+//     getRoom: getRoom(),
+//     getType: getType(),
+//     getSubject: getSubject(),
+//     getUrlContent: getUrlContent()
+// };
 
 function search(myArray, typeKey, groupKey, yearKey){
     var results = [];

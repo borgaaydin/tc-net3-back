@@ -199,7 +199,3 @@ function _delete(_id) {
 
     return deferred.promise;
 }
-
-function getCourseList() {
-    return courses;
-}
