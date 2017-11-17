@@ -167,7 +167,7 @@ function update(_id, userParam) {
         }
 
         // update trigram or group
-        if (userParam.isTeacher == true) {
+        if (userParam.isTeacher === true) {
             set.trigram = userParam.trigram;
         } else {
             set.group = userParam.group;
