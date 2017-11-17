@@ -60,7 +60,7 @@ function dataBaseCourseModel(timetable) {
             "type": getType(elements[2]),
             "number": elements[3],
             "group": getYearAndGroup(elements[0], elements[4]).group,
-            "date": elements[5],
+            "date": Date.parse(elements[5]),
             "startTime": elements[6],
             "endTime": elements[7],
             "room": getRoom(elements[8]),
@@ -69,7 +69,7 @@ function dataBaseCourseModel(timetable) {
             "present": []
         };
 
-        if (Date.parse(cours.date) > Date.now()) coursList.push(cours);
+        if (cours.date > Date.now()) coursList.push(cours);
     });
     return coursList;
 }
