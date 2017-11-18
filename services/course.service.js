@@ -34,13 +34,9 @@ function createSubjects(subjects) {
     var deferred = Q.defer();
 
     subjects.forEach(function (subject) {
-        db.subjects.insert(
-            subject,
+        db.subjects.updateOne({"subject": subject["name"], "year": subject["year"]}, {$set: {"name": subject["name"], "year": subject["year"]}}, {upsert: true},
             function (err, doc) {
-                if (err) {
-                    console.log(err.name + ': ' + err.message)
-                    deferred.reject(err.name + ': ' + err.message);
-                }
+                if (err) deferred.reject(err.name + ': ' + err.message);
 
                 deferred.resolve();
             }
@@ -70,7 +66,9 @@ function initDatabase() {
 }
 
 function updateDatabase() {
-    db.course.delete({date: {$gte: Date.now()}});
+    db.courses.deleteMany({date: {$gte: Date.now()}}, function(err, obj) {
+        if (err) throw err;
+    });
     initDatabase();
 }
 
