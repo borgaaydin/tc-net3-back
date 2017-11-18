@@ -39,7 +39,7 @@ var server = app.listen(port, function () {
 var coursList = parsertcnet2
 
 var j = schedule.scheduleJob('0 1 * * *', function(){
-    courseService.initDatabase();
+    courseService.updateDatabase();
 });
 
 courseService.initDatabase();

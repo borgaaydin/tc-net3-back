@@ -10,6 +10,7 @@ var service = {};
 service.getTodaysCourseList = getTodaysCourseList;
 service.getCourseById = getCourseById;
 service.initDatabase = initDatabase;
+service.updateDatabase = updateDatabase;
 
 module.exports = service;
 
@@ -34,6 +35,11 @@ function initDatabase() {
                 createCourse(course);
             })
         });
+}
+
+function updateDatabase() {
+    db.course.delete({date: {$gte: Date.now()}});
+    initDatabase();
 }
 
 function getTodaysCourseList(user_id) {
