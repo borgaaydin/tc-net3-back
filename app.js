@@ -36,8 +36,6 @@ var server = app.listen(port, function () {
     console.log('Server listening on port ' + port);
 });
 
-var coursList = parsertcnet2
-
 var j = schedule.scheduleJob('0 1 * * *', function(){
     courseService.updateDatabase();
 });

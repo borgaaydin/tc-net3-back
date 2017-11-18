@@ -4,6 +4,7 @@ var Q = require('q');
 var tcnet2 = require('../tcnetParser');
 var db = mongo.db(config.connectionString, { native_parser: true });
 db.bind('courses');
+db.bind('subjects');
 
 var service = {};
 
@@ -23,7 +24,28 @@ function createCourse(courseInfo) {
             if (err) deferred.reject(err.name + ': ' + err.message);
 
             deferred.resolve();
-        });
+        }
+    );
+
+    return deferred.promise;
+}
+
+function createSubjects(subjects) {
+    var deferred = Q.defer();
+
+    subjects.forEach(function (subject) {
+        db.subjects.insert(
+            subject,
+            function (err, doc) {
+                if (err) {
+                    console.log(err.name + ': ' + err.message)
+                    deferred.reject(err.name + ': ' + err.message);
+                }
+
+                deferred.resolve();
+            }
+        );
+    });
 
     return deferred.promise;
 }
@@ -31,9 +53,19 @@ function createCourse(courseInfo) {
 function initDatabase() {
     var courses = tcnet2.getCourses()
         .then(function (courses) {
+            var newSubjects = [];
             courses.forEach(function (course) {
+                if (newSubjects.filter(e => e.name == course["subject"]).length <= 0) {
+                    subject = {
+                        "name": course["subject"],
+                        "year": course["year"],
+                    };
+                    newSubjects.push(subject);
+                }
+
                 createCourse(course);
-            })
+            });
+            createSubjects(newSubjects);
         });
 }
 

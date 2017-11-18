@@ -77,7 +77,6 @@ function getCourses() {
                     };
                     if (course.date > Date.now()) courseList.push(course);
                 });
-
                 deferred.resolve(courseList);
             }
         });
