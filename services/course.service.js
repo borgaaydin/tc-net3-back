@@ -8,6 +8,7 @@ db.bind('courses');
 var service = {};
 
 service.getTodaysCourseList = getTodaysCourseList;
+service.initDatabase = initDatabase;
 
 module.exports = service;
 
@@ -15,7 +16,7 @@ function createCourse(courseInfo) {
     var deferred = Q.defer();
 
     db.courses.insert(
-        coursInfo,
+        courseInfo,
         function (err, doc) {
             if (err) deferred.reject(err.name + ': ' + err.message);
 
@@ -27,8 +28,8 @@ function createCourse(courseInfo) {
 
 function initDatabase() {
     var courses = tcnet2.getCourses(tcnet2.getTimeTable());
-    courses.forEach(function (cours) {
-        createCours(cours)
+    courses.forEach(function (course) {
+        createCourse(course)
     })
 
 }
