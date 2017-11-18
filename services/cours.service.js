@@ -5,25 +5,19 @@ var tcnet2 = require('../textUtilities');
 var db = mongo.db(config.absenceDataBase, { native_parser: true });
 db.bind('courses');
 
+var service = {};
 
-function createCours(coursInfos) {
-    var deferred = Q.defer();
-
-    db.courses.insert(
-        coursInfos,
-        function (err, doc) {
-            if (err) deferred.reject(err.name + ': ' + err.message);
-
-            deferred.resolve();
-        });
-
-    return deferred.promise;
-}
+service.initDataBase = initDataBase();
 
 function initDataBase() {
+    var deferred = Q.defer();
     var courses = tcnet2.getCourses(tcnet2.getTimeTable());
     courses.forEach(function (cours) {
-        createCours(cours)
-    })
+            db.courses.insert(cours, function (err, doc) {
+                    if (err) deferred.reject(err.name + ': ' + err.message);
+                    deferred.resolve();
+                });
+        });
 
+    return deferred.promise
 }

@@ -102,14 +102,3 @@ module.exports = {
     getSubject: getSubject(),
     getUrlContent: getUrlContent()
 };
-
-function search(myArray, typeKey, groupKey, yearKey){
-    var results = [];
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].group.includes(groupKey) && myArray[i].type === typeKey &&
-        myArray[i].year === yearKey) {
-            results.push(myArray[i]);
-        }
-    }
-    return results
-}
