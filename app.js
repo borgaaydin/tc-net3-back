@@ -4,8 +4,10 @@ var app = express();
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
+var schedule = require('node-schedule');
 var config = require('config.json');
 var parsertcnet2 = require("./tcnetParser");
+var courseService = require('services/course.service');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,3 +37,9 @@ var server = app.listen(port, function () {
 });
 
 var coursList = parsertcnet2
+
+var j = schedule.scheduleJob('0 1 * * *', function(){
+    courseService.initDatabase();
+});
+
+courseService.initDatabase();

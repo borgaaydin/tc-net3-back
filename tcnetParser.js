@@ -1,3 +1,4 @@
+var Q = require('q');
 const http = require('http');
 var auth = require('./auth.json');
 var request = require('request');
@@ -46,8 +47,9 @@ function getTimetable(content) {
 }
 
 function getCourses() {
+    var deferred = Q.defer();
     var content = "";
-    var coursList = [];
+    var courseList = [];
 
     request.get('https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp', {
             'auth':{
@@ -59,7 +61,7 @@ function getCourses() {
 
                 timeTable.forEach(function (t) {
                     var elements = t.split(":");
-                    var cours = {
+                    var course = {
                         "year": getYearAndGroup(elements[0], elements[4]).year,
                         "subject": getSubject(elements[1]),
                         "type": getType(elements[2]),
@@ -73,11 +75,13 @@ function getCourses() {
                         "absent": [],
                         "present": []
                     };
-                    if (cours.date > Date.now()) coursList.push(cours);
+                    if (course.date > Date.now()) courseList.push(course);
                 });
+
+                deferred.resolve(courseList);
             }
         });
-    return coursList;
+    return deferred.promise;
 }
 
 
@@ -100,5 +104,5 @@ cours = {
 
 //Enable requiring thoses functions
 module.exports = {
-    getCourses: getCourses()
+    getCourses: getCourses
 };

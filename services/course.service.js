@@ -27,11 +27,12 @@ function createCourse(courseInfo) {
 }
 
 function initDatabase() {
-    var courses = tcnet2.getCourses(tcnet2.getTimeTable());
-    courses.forEach(function (course) {
-        createCourse(course)
-    })
-
+    var courses = tcnet2.getCourses()
+        .then(function (courses) {
+            courses.forEach(function (course) {
+                createCourse(course);
+            })
+        });
 }
 
 function getTodaysCourseList(user_id) {
