@@ -8,6 +8,7 @@ db.bind('courses');
 var service = {};
 
 service.getTodaysCourseList = getTodaysCourseList;
+service.getCourseById = getCourseById;
 
 module.exports = service;
 
@@ -33,7 +34,7 @@ function initDatabase() {
 
 }
 
-function getTodaysCourseList(userid) {
+function getTodaysCourseList(user_id) {
     var deferred = Q.defer();
 
     var start = new Date();
@@ -42,11 +43,19 @@ function getTodaysCourseList(userid) {
     var end = new Date();
     end.setHours(23,59,59,999);
 
-    db.courses.find({date: {$gte: start, $lt: end}, profs: userid}).toArray(function (err, courses) {
+    db.courses.find({date: {$gte: start, $lt: end}, profs: user_id}).toArray(function (err, courses) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         deferred.resolve(courses);
     });
 
     return deferred.promise;
+}
+
+function getCourseById(course_id) {
+    db.courses.find({_id: course_id}).toArray(function (err, courses) {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+
+        deferred.resolve(courses);
+    });
 }

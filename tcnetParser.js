@@ -47,32 +47,35 @@ function getTimetable(content) {
 
 function getCourses() {
     var content = "";
+    var coursList = [];
+
     request.get('https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp', {
             'auth':{
                 'user': auth.name, 'pass':auth.password}},
         function (error, response, body) {
-            content = body;
-            var timeTable = getTimetable(String(content));
-            var coursList = [];
-            timeTable.forEach(function (t) {
-                var elements = t.split(":");
-                var cours = {
-                    "year": getYearAndGroup(elements[0], elements[4]).year,
-                    "subject": getSubject(elements[1]),
-                    "type": getType(elements[2]),
-                    "number": elements[3],
-                    "group": getYearAndGroup(elements[0], elements[4]).group,
-                    "date": Date.parse(elements[5]),
-                    "startTime": elements[6],
-                    "endTime": elements[7],
-                    "room": getRoom(elements[8]),
-                    "professor": getProf(elements[9]),
-                    "absent": [],
-                    "present": []
-                };
+            if (!error && response.statusCode === 200) {
+                content = body;
+                var timeTable = getTimetable(String(content));
 
-                if (cours.date > Date.now()) coursList.push(cours);
-            });
+                timeTable.forEach(function (t) {
+                    var elements = t.split(":");
+                    var cours = {
+                        "year": getYearAndGroup(elements[0], elements[4]).year,
+                        "subject": getSubject(elements[1]),
+                        "type": getType(elements[2]),
+                        "number": elements[3],
+                        "group": getYearAndGroup(elements[0], elements[4]).group,
+                        "date": Date.parse(elements[5]),
+                        "startTime": elements[6],
+                        "endTime": elements[7],
+                        "room": getRoom(elements[8]),
+                        "professor": getProf(elements[9]),
+                        "absent": [],
+                        "present": []
+                    };
+                    if (cours.date > Date.now()) coursList.push(cours);
+                });
+            }
         });
     return coursList;
 }
