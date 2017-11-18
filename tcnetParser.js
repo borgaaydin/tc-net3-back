@@ -1,9 +1,6 @@
-function getUrlContent(url) {
-    var req = new XMLHttpRequest();
-    req.open("Get", url, false);
-    req.send(null);
-    return req.responseText;
-}
+const http = require('http');
+var auth = require('./auth.json');
+var request = require('request');
 
 function getSubject(line) {
     return line.split(/^[^-]+-/)[1]
@@ -40,9 +37,7 @@ function getYearAndGroup(yearLine, groupLine) {
     return {year: yearLine, group: groups}
 }
 
-function getTimetable() {
-    var url = "https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp";
-    var content = getUrlContent(url);
+function getTimetable(content) {
     var pre = content.split("pre")[1];
     var time_table = pre.split("\n");
     time_table.splice(0,1);
@@ -50,29 +45,38 @@ function getTimetable() {
     return time_table;
 }
 
-function dataBaseCourseModel(timetable) {
-    var coursList = [];
-    timetable.forEach(function (t) {
-        var elements = t.split(":");
-        var cours = {
-            "year": getYearAndGroup(elements[0], elements[4]).year,
-            "subject": getSubject(elements[1]),
-            "type": getType(elements[2]),
-            "number": elements[3],
-            "group": getYearAndGroup(elements[0], elements[4]).group,
-            "date": Date.parse(elements[5]),
-            "startTime": elements[6],
-            "endTime": elements[7],
-            "room": getRoom(elements[8]),
-            "professor": getProf(elements[9]),
-            "absent": [],
-            "present": []
-        };
+function getCourses() {
+    var content = "";
+    request.get('https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp', {
+            'auth':{
+                'user': auth.name, 'pass':auth.password}},
+        function (error, response, body) {
+            content = body;
+            var timeTable = getTimetable(String(content));
+            var coursList = [];
+            timeTable.forEach(function (t) {
+                var elements = t.split(":");
+                var cours = {
+                    "year": getYearAndGroup(elements[0], elements[4]).year,
+                    "subject": getSubject(elements[1]),
+                    "type": getType(elements[2]),
+                    "number": elements[3],
+                    "group": getYearAndGroup(elements[0], elements[4]).group,
+                    "date": Date.parse(elements[5]),
+                    "startTime": elements[6],
+                    "endTime": elements[7],
+                    "room": getRoom(elements[8]),
+                    "professor": getProf(elements[9]),
+                    "absent": [],
+                    "present": []
+                };
 
-        if (cours.date > Date.now()) coursList.push(cours);
-    });
+                if (cours.date > Date.now()) coursList.push(cours);
+            });
+        });
     return coursList;
 }
+
 
 
 /*Here is the data model
@@ -92,24 +96,6 @@ cours = {
 };*/
 
 //Enable requiring thoses functions
-// module.exports = {
-//     getCourses: dataBaseCourseModel(),
-//     getTimeTable: getTimetable(),
-//     getYearAndGroup: getYearAndGroup(),
-//     getProf: getProf(),
-//     getRoom: getRoom(),
-//     getType: getType(),
-//     getSubject: getSubject(),
-//     getUrlContent: getUrlContent()
-// };
-
-function search(myArray, typeKey, groupKey, yearKey){
-    var results = [];
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].group.includes(groupKey) && myArray[i].type === typeKey &&
-        myArray[i].year === yearKey) {
-            results.push(myArray[i]);
-        }
-    }
-    return results
-}
+module.exports = {
+    getCourses: getCourses()
+};

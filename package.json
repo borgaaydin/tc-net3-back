@@ -21,6 +21,7 @@
     "mongoskin": "^2.1.0",
     "morgan": "~1.9.0",
     "node-sass-middleware": "0.9.8",
+    "node-schedule": "^1.2.5",
     "q": "^1.4.1",
     "request": "^2.58.0",
     "rootpath": "^0.1.2",
