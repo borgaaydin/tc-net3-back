@@ -24,16 +24,29 @@ function authenticate(username, password) {
     db.users.findOne({ username: username }, function (err, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
-        if (user && bcrypt.compareSync(password, user.hash)) {
+        if (user && bcrypt.compareSync(password, user.hash) && !user.isTeacher) {
             // authentication successful
             deferred.resolve({
                 _id: user._id,
                 username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                token: jwt.sign({ sub: user._id }, config.secret)
+                isTeacher: user.isTeacher,
+                token: jwt.sign({ sub: user._id}, config.secret)
             });
-        } else {
+        } else if(user && bcrypt.compareSync(password, user.hash) && user.isTeacher) {
+            // authentication successful for a prof
+            deferred.resolve({
+                _id: user._id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                isTeacher: user.isTeacher,
+                token: jwt.sign({ sub: user._id, scope: "ens" }, config.secret)
+            });
+        }
+
+        else {
             // authentication failed
             deferred.resolve();
         }
@@ -144,12 +157,20 @@ function update(_id, userParam) {
         var set = {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
-            username: userParam.username
+            username: userParam.username,
+            isTeacher: userParam.isTeacher,
         };
 
         // update password if it was entered
         if (userParam.password) {
             set.hash = bcrypt.hashSync(userParam.password, 10);
+        }
+
+        // update trigram or group
+        if (userParam.isTeacher === true) {
+            set.trigram = userParam.trigram;
+        } else {
+            set.group = userParam.group;
         }
 
         db.users.update(

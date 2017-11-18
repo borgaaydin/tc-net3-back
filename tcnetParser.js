@@ -60,7 +60,7 @@ function dataBaseCourseModel(timetable) {
             "type": getType(elements[2]),
             "number": elements[3],
             "group": getYearAndGroup(elements[0], elements[4]).group,
-            "date": elements[5],
+            "date": Date.parse(elements[5]),
             "startTime": elements[6],
             "endTime": elements[7],
             "room": getRoom(elements[8]),
@@ -69,7 +69,7 @@ function dataBaseCourseModel(timetable) {
             "present": []
         };
 
-        if (Date.parse(cours.date) > Date.now()) coursList.push(cours);
+        if (cours.date > Date.now()) coursList.push(cours);
     });
     return coursList;
 }
@@ -83,8 +83,8 @@ cours = {
     "Number": 6,
     "Group": 2,
     "Date": 2017-01-06,
-    "BeginingHour": 840,
-    "EndingHour": 1080,
+    "startTime": 840,
+    "endTime": 1080,
     "Room": [TP-INFO C, INFO D],
     "Professor": [RAG, TRI],
     "Absent": ["Toto", "Léo", "Borga"],
@@ -92,13 +92,24 @@ cours = {
 };*/
 
 //Enable requiring thoses functions
-module.exports = {
-    getCourses: dataBaseCourseModel(),
-    getTimeTable: getTimetable(),
-    getYearAndGroup: getYearAndGroup(),
-    getProf: getProf(),
-    getRoom: getRoom(),
-    getType: getType(),
-    getSubject: getSubject(),
-    getUrlContent: getUrlContent()
-};
+// module.exports = {
+//     getCourses: dataBaseCourseModel(),
+//     getTimeTable: getTimetable(),
+//     getYearAndGroup: getYearAndGroup(),
+//     getProf: getProf(),
+//     getRoom: getRoom(),
+//     getType: getType(),
+//     getSubject: getSubject(),
+//     getUrlContent: getUrlContent()
+// };
+
+function search(myArray, typeKey, groupKey, yearKey){
+    var results = [];
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].group.includes(groupKey) && myArray[i].type === typeKey &&
+        myArray[i].year === yearKey) {
+            results.push(myArray[i]);
+        }
+    }
+    return results
+}
