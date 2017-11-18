@@ -12,6 +12,7 @@ service.getTodaysCourseList = getTodaysCourseList;
 service.getCourseById = getCourseById;
 service.initDatabase = initDatabase;
 service.updateDatabase = updateDatabase;
+service.getSubjects = getSubjects;
 
 module.exports = service;
 
@@ -103,6 +104,18 @@ function getCourseById(course_id) {
             // course not found
             deferred.resolve();
         }
+    });
+
+    return deferred.promise;
+}
+
+function getSubjects() {
+    var deferred = Q.defer();
+
+    db.subjects.find({}).toArray(function (err, subjects) {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+
+        deferred.resolve(subjects);
     });
 
     return deferred.promise;

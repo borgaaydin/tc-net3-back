@@ -9,10 +9,21 @@ var courseService = require('services/course.service');
 
 // routes
 router.get('/', guard.check(['ens']), getMyCourses);
+router.get('/subjects', getSubjects);
 router.get('/:_id', guard.check(['ens']), getById);
 router.get('/:_id/students', guard.check(['ens']), getById);
 
 module.exports = router;
+
+function getSubjects(req, res) {
+    courseService.getSubjects()
+        .then(function (subjects) {
+            res.send(subjects);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
 
 function getMyCourses(req, res) {
     courseService.getTodaysCourseList(req.user.sub)
@@ -39,4 +50,3 @@ function getById(req, res) {
             res.status(400).send(err);
         });
 }
-
