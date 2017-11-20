@@ -42,7 +42,7 @@ function authenticate(username, password) {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 isTeacher: user.isTeacher,
-                token: jwt.sign({ sub: user._id, scope: "ens" }, config.secret)
+                token: jwt.sign({ sub: user._id, scope: "ens", tri: user.trigram }, config.secret)
             });
         }
 
@@ -158,8 +158,7 @@ function update(_id, userParam) {
             firstName: userParam.firstName,
             lastName: userParam.lastName,
             username: userParam.username,
-            isTeacher: userParam.isTeacher,
-            subjects: subjects,
+            isTeacher: userParam.isTeacher
         };
 
         // update password if it was entered
@@ -167,11 +166,12 @@ function update(_id, userParam) {
             set.hash = bcrypt.hashSync(userParam.password, 10);
         }
 
-        // update trigram or group
+        // update according to user type
         if (userParam.isTeacher === true) {
             set.trigram = userParam.trigram;
         } else {
             set.group = userParam.group;
+            set.subjects = userParam.subjects;
         }
 
         db.users.update(
