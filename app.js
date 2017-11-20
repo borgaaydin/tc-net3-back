@@ -26,6 +26,12 @@ app.use(expressJwt({
     }
 }).unless({ path: ['/users/authenticate', '/users/register'] }));
 
+app.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('Invalid token');
+  }
+});
+
 // routes
 app.use('/users', require('./controllers/users.controller'));
 app.use('/courses', require('./controllers/courses.controller'));
