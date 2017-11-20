@@ -58,7 +58,7 @@ function getCourses() {
     var courseList = [];
     var url = 'https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp';
 
-    console.log("Trying to get data from "+ url + "");
+    console.log("Trying to get data from "+ url + "...");
 
     request.get(url, {
             'auth':{
