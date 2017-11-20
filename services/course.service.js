@@ -144,10 +144,18 @@ function rollCall(course_id, data, user) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         if (course) {
-            db.courses.updateById(course._id, {set: {"present": data.present, "absent": data.absent}});
+            db.courses.updateById(course._id, {$set: {"present": data.present, "absent": data.absent}});
+            var absence = {
+                "_id": course._id,
+                "subject": course.subject,
+                "type": course.type,
+                "startTime": course.startTime,
+                "professor": course.professor
+            };
             data.absent.forEach(function (student){
-                db.users.updateById(student._id, {$push: {"absences": course}});
+                db.users.updateById(student._id, {$push: {"absences": absence}});
             });
+            deferred.resolve();
         } else {
             deferred.resolve();
         }
