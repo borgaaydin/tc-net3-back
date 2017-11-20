@@ -1,4 +1,5 @@
 var config = require('config.json');
+var _ = require('lodash');
 var mongo = require('mongoskin');
 var Q = require('q');
 var tcnet2 = require('../tcnetParser');
@@ -86,7 +87,7 @@ function getTodaysCourseList(user) {
     var end = new Date();
     end.setHours(23,59,59,999);
 
-    db.courses.find({date: {$gte: start.getTime(), $lt: end.getTime()}, professor: user.tri}).toArray(function (err, courses) {
+    db.courses.find({startTime: {$gte: start.getTime(), $lt: end.getTime()}, professor: user.tri}).toArray(function (err, courses) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         deferred.resolve(courses);
