@@ -117,23 +117,23 @@ function getCourseById(course_id) {
 function getRollcallList(course_id) {
     var deferred = Q.defer();
 
-    db.courses.findById(course_id, function (err, course) {
-        if (err) deferred.reject(err.name + ': ' + err.message);
+    getCourseById(course_id)
+        .then(function (course) {
+            if (course) {
+                db.users.find({"subjects" : { $in : [course.subject]}}).toArray(function (err, students) {
+                    if (err) deferred.reject(err.name + ': ' + err.message);
 
-        if (course) {
-            db.users.find({"subjects" : { $in : [course.subject]}}).toArray(function (err, students) {
-                if (err) deferred.reject(err.name + ': ' + err.message);
+                    students = _.map(students, function (student) {
+                        return _.omit(student, ['hash', 'subjects', 'isTeacher']);
+                    });
 
-                students = _.map(students, function (student) {
-                    return _.omit(student, ['hash', 'subjects']);
+                    console.log(students);
+                    deferred.resolve(students);
                 });
-
-                deferred.resolve(students);
-            });
-        } else {
-            deferred.resolve();
-        }
-    });
+            } else {
+                deferred.resolve();
+            }
+        });
 
     return deferred.promise;
 }
