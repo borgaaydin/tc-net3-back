@@ -5,11 +5,14 @@ var tcnet2 = require('../tcnetParser');
 var db = mongo.db(config.connectionString, { native_parser: true });
 db.bind('courses');
 db.bind('subjects');
+db.bind('users');
 
 var service = {};
 
 service.getTodaysCourseList = getTodaysCourseList;
 service.getCourseById = getCourseById;
+service.getRollcallList = getRollcallList;
+service.rollCall = rollCall;
 service.initDatabase = initDatabase;
 service.updateDatabase = updateDatabase;
 service.getSubjects = getSubjects;
@@ -103,6 +106,46 @@ function getCourseById(course_id) {
             deferred.resolve(course);
         } else {
             // course not found
+            deferred.resolve();
+        }
+    });
+
+    return deferred.promise;
+}
+
+function getRollcallList(course_id) {
+    var deferred = Q.defer();
+
+    db.courses.findById(course_id, function (err, course) {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+
+        if (course) {
+            db.users.find({"subjects" : { $in : [course.subject]}}).toArray(function (err, students) {
+                if (err) deferred.reject(err.name + ': ' + err.message);
+
+                students = _.map(students, function (student) {
+                    return _.omit(student, ['hash', 'subjects']);
+                });
+
+                deferred.resolve(students);
+            });
+        } else {
+            deferred.resolve();
+        }
+    });
+
+    return deferred.promise;
+}
+
+function rollCall(course_id, data, user) {
+    var deferred = Q.defer();
+
+    db.courses.findById(course_id, function (err, course) {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+
+        if (course) {
+            db.courses.updateById(course._id, {set: {"present": data.present, "absent": data.absent}});
+        } else {
             deferred.resolve();
         }
     });
