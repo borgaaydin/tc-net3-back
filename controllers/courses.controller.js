@@ -13,7 +13,7 @@ router.get('/subjects', getSubjects);
 router.get('/:_id', guard.check(['ens']), getById);
 router.get('/:_id/students', guard.check(['ens']), getById);
 router.get('/rollcall/:_id', guard.check(['ens']), getRollcallList);
-router.put('/rollcall/:_id', guard.check(['ens']), rollCall);
+router.post('/rollcall/:_id', guard.check(['ens']), rollCall);
 
 module.exports = router;
 
