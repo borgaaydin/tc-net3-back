@@ -35,7 +35,7 @@ function createSubjects(subjects) {
     var deferred = Q.defer();
 
     subjects.forEach(function (subject) {
-        db.subjects.updateOne({"subject": subject["name"], "year": subject["year"]}, {$set: {"name": subject["name"], "year": subject["year"]}}, {upsert: true},
+        db.subjects.updateOne({"name": subject["name"], "year": subject["year"]}, {$set: {"name": subject["name"], "year": subject["year"]}}, {upsert: true},
             function (err, doc) {
                 if (err) deferred.reject(err.name + ': ' + err.message);
 
