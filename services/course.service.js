@@ -87,7 +87,7 @@ function getTodaysCourseList(user) {
     end.setDate(end.getDate()+1);
     end.setHours(23,59,59,999);
 
-    db.courses.find({startTime: {$gte: start.getTime(), $lt: end.getTime()}, professor: {$in: [user.tri]}}).toArray(function (err, courses) {
+    db.courses.find({startTime: {$gte: start.getTime(), $lt: end.getTime()}, professor: {$in: [user.tri]}}).sort({ "startTime": 1 }).toArray(function (err, courses) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         deferred.resolve(courses);
