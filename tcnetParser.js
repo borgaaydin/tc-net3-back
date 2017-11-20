@@ -50,12 +50,16 @@ function getCourses() {
     var deferred = Q.defer();
     var content = "";
     var courseList = [];
+    var url = 'https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp';
 
-    request.get('https://tc-net2.insa-lyon.fr/edt/ens/ExtractFaf.jsp', {
+    console.log("Trying to get data from "+ url + "");
+
+    request.get(url, {
             'auth':{
                 'user': auth.name, 'pass':auth.password}},
         function (error, response, body) {
             if (!error && response.statusCode === 200) {
+                console.log("Data received with success!");
                 content = body;
                 var timeTable = getTimetable(String(content));
 
@@ -78,6 +82,9 @@ function getCourses() {
                     if (course.date > Date.now()) courseList.push(course);
                 });
                 deferred.resolve(courseList);
+            } else {
+                console.log("Error getting data from server!");
+                console.log(response.statusCode + " " + response.statusMessage);
             }
         });
     return deferred.promise;

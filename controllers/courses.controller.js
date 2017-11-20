@@ -26,7 +26,7 @@ function getSubjects(req, res) {
 }
 
 function getMyCourses(req, res) {
-    courseService.getTodaysCourseList(req.user.sub)
+    courseService.getTodaysCourseList(req.user)
         .then(function (courses) {
             res.send(courses);
         })
@@ -38,7 +38,6 @@ function getMyCourses(req, res) {
 function getById(req, res) {
     courseService.getCourseById(req.params._id)
         .then(function (courses) {
-            console.log(!courses);
             if(courses !== undefined) {
                 res.send(courses);
             } else {

@@ -52,10 +52,10 @@ function initDatabase() {
         .then(function (courses) {
             var newSubjects = [];
             courses.forEach(function (course) {
-                if (newSubjects.filter(e => e.name == course["subject"]).length <= 0) {
+                if (newSubjects.filter(e => e.name === course["subject"]).length <= 0) {
                     subject = {
                         "name": course["subject"],
-                        "year": course["year"],
+                        "year": course["year"]
                     };
                     newSubjects.push(subject);
                 }
@@ -73,7 +73,8 @@ function updateDatabase() {
     initDatabase();
 }
 
-function getTodaysCourseList(user_id) {
+function getTodaysCourseList(user) {
+    console.log(user);
     var deferred = Q.defer();
 
     var start = new Date();
@@ -82,7 +83,7 @@ function getTodaysCourseList(user_id) {
     var end = new Date();
     end.setHours(23,59,59,999);
 
-    db.courses.find({date: {$gte: start, $lt: end}, profs: user_id}).toArray(function (err, courses) {
+    db.courses.find({date: {$gte: start.getTime(), $lt: end.getTime()}, professor: user.tri}).toArray(function (err, courses) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         deferred.resolve(courses);
