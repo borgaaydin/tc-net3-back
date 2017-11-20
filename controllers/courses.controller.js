@@ -23,7 +23,7 @@ function getSubjects(req, res) {
             res.send(subjects);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -33,7 +33,7 @@ function getMyCourses(req, res) {
             res.send(courses);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -43,12 +43,12 @@ function getById(req, res) {
             if(courses !== undefined) {
                 res.send(courses);
             } else {
-                res.status(204).send();
+                res.sendStatus(204);
             }
 
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -58,7 +58,7 @@ function getRollcallList(req, res) {
             res.send(courses);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -68,6 +68,6 @@ function rollCall(req, res) {
             res.sendStatus(200);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }

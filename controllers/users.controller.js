@@ -30,7 +30,7 @@ function authenticate(req, res) {
             }
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.status(400);
         });
 }
 
@@ -40,7 +40,7 @@ function register(req, res) {
             res.sendStatus(200);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -50,7 +50,7 @@ function getAll(req, res) {
             res.send(users);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -64,7 +64,7 @@ function getCurrent(req, res) {
             }
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -78,7 +78,7 @@ function getMyAbsences(req, res) {
             }
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -88,7 +88,7 @@ function update(req, res) {
             res.sendStatus(200);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
 
@@ -98,6 +98,6 @@ function _delete(req, res) {
             res.sendStatus(200);
         })
         .catch(function (err) {
-            res.status(400).send(err);
+            res.sendStatus(400);
         });
 }
