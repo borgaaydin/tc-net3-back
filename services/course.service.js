@@ -137,14 +137,14 @@ function getRollcallList(course_id) {
     return deferred.promise;
 }
 
-function rollCall(course_id, data, user) {
+function rollCall(course_id, roll, user) {
     var deferred = Q.defer();
 
     db.courses.findById(course_id, function (err, course) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         if (course) {
-            db.courses.updateById(course._id, {$set: {"present": data.present, "absent": data.absent}});
+            db.courses.updateById(course._id, {$set: {"present": roll.present, "absent": roll.absent}});
             var absence = {
                 "_id": course._id,
                 "subject": course.subject,
@@ -152,12 +152,16 @@ function rollCall(course_id, data, user) {
                 "startTime": course.startTime,
                 "professor": course.professor
             };
-            data.absent.forEach(function (student){
-                db.users.updateById(student._id, {$push: {"absences": absence}});
+            roll.absent.forEach(function (student){
+                db.users.updateById(student, {$push: {"absences": absence}}, function (err) {
+                    if (err) deferred.reject(err.name + ': ' + err.message);
+                });
             });
+
             deferred.resolve();
+
         } else {
-            deferred.resolve();
+            deferred.reject();
         }
     });
 
