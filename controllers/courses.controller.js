@@ -54,8 +54,8 @@ function getById(req, res) {
 
 function getRollcallList(req, res) {
     courseService.getRollcallList(req.params._id)
-        .then(function () {
-            res.sendStatus(200);
+        .then(function (courses) {
+            res.send(courses);
         })
         .catch(function (err) {
             res.status(400).send(err);
