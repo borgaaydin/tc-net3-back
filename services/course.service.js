@@ -127,7 +127,6 @@ function getRollcallList(course_id) {
                         return _.omit(student, ['hash', 'subjects', 'isTeacher']);
                     });
 
-                    console.log(students);
                     deferred.resolve(students);
                 });
             } else {
