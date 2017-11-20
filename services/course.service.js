@@ -67,7 +67,7 @@ function initDatabase() {
 }
 
 function updateDatabase() {
-    db.courses.deleteMany({date: {$gte: Date.now()}}, function(err, obj) {
+    db.courses.deleteMany({startTime: {$gte: Date.now()}}, function(err, obj) {
         if (err) throw err;
     });
     initDatabase();
