@@ -1,4 +1,3 @@
-2017-11-20T12:03:06.708+0000	connected to: localhost
 {"_id":{"$oid":"5a12c454e042b002a883ba32"},"subject":"CMN","year":"3","name":"CMN"}
 {"_id":{"$oid":"5a12c454e042b002a883ba34"},"subject":"CTC2","year":"3","name":"CTC2"}
 {"_id":{"$oid":"5a12c454e042b002a883ba3e"},"subject":"PRJ","year":"3","name":"PRJ"}
@@ -59,4 +58,3 @@
 {"_id":{"$oid":"5a12c454e042b002a883babe"},"subject":"OP1-PROJ","year":"5","name":"OP1-PROJ"}
 {"_id":{"$oid":"5a12c454e042b002a883bac1"},"subject":"OP3-PROJ","year":"5","name":"OP3-PROJ"}
 {"_id":{"$oid":"5a12c454e042b002a883bac3"},"subject":"SHE","year":"5","name":"SHE"}
-2017-11-20T12:03:06.713+0000	exported 60 records
