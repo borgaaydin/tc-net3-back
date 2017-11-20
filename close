@@ -1,0 +1,303 @@
+[33mcommit 30e5f69a9c492b001e49bf5e48e3b3926b0e7c72[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Mon Nov 20 13:19:48 2017 +0100
+
+    Remove subject field in subject collection
+
+[33mcommit 63feae0ecb934fc0efe79b11908436c9645544ae[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Mon Nov 20 13:04:31 2017 +0100
+
+    Add export of courses and subjects
+
+[33mcommit cef2fe6c6ed5486e66b2b583b1d3003c4dfb8bdc[m
+Merge: 7862ae1 f4ff0ad
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Mon Nov 20 12:52:46 2017 +0100
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 7862ae1e5615d84fd69a8a39cf6d469da631ad92[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Mon Nov 20 12:52:19 2017 +0100
+
+    Update updateDatabase
+
+[33mcommit f4ff0add293ea182a2b2a96503832cd112f7159f[m
+Merge: 96d153c 2826c6f
+Author: borga <borgaaydin@gmail.com>
+Date:   Mon Nov 20 12:06:10 2017 +0100
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       auth.json
+
+[33mcommit 96d153c87dabccad3b6c5f1df8383c1a9cc3f6b5[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Mon Nov 20 12:05:13 2017 +0100
+
+    proceed
+
+[33mcommit 2826c6fb1608dd5cdfdc958e19c7cddee98e8b74[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Mon Nov 20 11:55:51 2017 +0100
+
+    Repare ms conversion
+
+[33mcommit 8430e42684f8d946921e8303621e6d7fa5ea8e3c[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Mon Nov 20 11:32:37 2017 +0100
+
+    Change startTime and endTime format
+
+[33mcommit 336b83075c692871fe20131408eb5e07ae251718[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Mon Nov 20 10:11:29 2017 +0100
+
+    Add instructions to run mongo using Docker
+
+[33mcommit 82e785453b0e2be170904f8ef72c2a97050a4725[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 18:52:16 2017 +0100
+
+    Add subjects in user fields
+
+[33mcommit 91ec3d05806dff070e7ae40d3790b4f84dd75af1[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 18:25:46 2017 +0100
+
+    Add endpoint for subjects
+
+[33mcommit 956f8774edbef061764a91355dfd31ed0ef1390c[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 18:08:55 2017 +0100
+
+    Fix createSubjects function, now working properly
+
+[33mcommit 8479f3618a0c97b2d6c7f00e4746c3d2e3719608[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 17:45:09 2017 +0100
+
+    Add unique subjects to a collection
+
+[33mcommit 7f50e23e869250ce4e44651b9f894ef709104080[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Sat Nov 18 17:36:37 2017 +0100
+
+    Add update database scheduled every day at 1AM
+
+[33mcommit 250fe364e20ad18c2e5be4eec56da6e4c8f0d807[m
+Merge: 376b318 4a2cc95
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 16:42:03 2017 +0100
+
+    Merge
+
+[33mcommit 376b31874796532deb02526acb84defb795e21cd[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 16:40:33 2017 +0100
+
+    Crawling courses from tc-net2 is now working
+
+[33mcommit 4a2cc9598bddb2c233ad9655f1a9126387da4dcd[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Sat Nov 18 16:18:22 2017 +0100
+
+    get course by id
+
+[33mcommit 21e3bc94c4dd8d9ab048d8871f8ac991aff29757[m
+Merge: b894705 582b7eb
+Author: borga <borgaaydin@gmail.com>
+Date:   Sat Nov 18 15:56:57 2017 +0100
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       services/course.service.js
+
+[33mcommit b8947058fea9e4019d569c3b7a9f613cae473a42[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Sat Nov 18 15:56:01 2017 +0100
+
+    request on error
+
+[33mcommit 582b7eb0f4c8116a18c9863e2bf4cf7b8d5fb010[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 15:47:35 2017 +0100
+
+    Add auth.json to gitignore, preventing credentials leakage
+
+[33mcommit 40fb8c8a8572481eb8ffa5e08248c28331b6a3c6[m
+Merge: 4b62bf8 a83f72b
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 15:37:49 2017 +0100
+
+    Merge branch 'master' of github.com:borgaaydin/tc-net3-back
+
+[33mcommit a83f72b00dfc91e252cadba4849bffae8768464a[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Sat Nov 18 15:36:59 2017 +0100
+
+    cleanup
+
+[33mcommit 4b62bf87f5f52db160f564cb5acf109d627acced[m
+Merge: 3f63c0e 591c181
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 15:36:58 2017 +0100
+
+    Merge branch 'master' of github.com:borgaaydin/tc-net3-back
+
+[33mcommit 3f63c0e8ac7ecec385363958bd4b881e0011ca24[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Sat Nov 18 15:35:45 2017 +0100
+
+    Fix typos in course.service
+
+[33mcommit 591c1815b812546eb233e38beeb3ad76dda7f087[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Sat Nov 18 15:26:05 2017 +0100
+
+    Change tcnetParser to be able to collect all datas wit a login, password stored in auth.json
+
+[33mcommit 1d41faf03b0c07dcc88ae59b8930e13ed01aa1da[m
+Merge: a492898 e0b990c
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Sat Nov 18 12:52:35 2017 +0100
+
+    Merge branch 'master' of https://github.com/borgaaydin/tc-net3-back
+    
+    # Conflicts:
+    #       services/cours.service.js
+    #       services/user.service.js
+    #       tcnetParser.js
+
+[33mcommit a4928985a00fe42a4a4395e48fde4126105b689e[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Sat Nov 18 12:50:37 2017 +0100
+
+    A random commit
+
+[33mcommit cbff9b489f93c3810300927966c6a996cf8a76e9[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Sat Nov 18 12:50:17 2017 +0100
+
+    A random commit
+
+[33mcommit e0b990c0052d81d1b869a5d3628cdaaac27b3b49[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Fri Nov 17 17:28:38 2017 +0100
+
+    Change cours.date format to js date object
+
+[33mcommit f7f4a8f68c4ff23cfb316539790f7cc2959ec5ca[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Fri Nov 17 11:56:13 2017 +0100
+
+    course service get todays courses by prof
+
+[33mcommit 8174fd91fb5dc9d90606e7968aa563609a111f94[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Fri Nov 17 09:09:45 2017 +0100
+
+    course controller
+
+[33mcommit 868a80672273f9603647dc1b1c27f9dd47b5f31d[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Thu Nov 16 17:37:52 2017 +0100
+
+    Add Dockerfile, not working for the moment
+
+[33mcommit 2fbf446a478515c78e49141c6c4c11a0c1729dd9[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Wed Nov 15 16:47:18 2017 +0100
+
+    permission for ens
+
+[33mcommit fbfea9c0a85918ffe09357413df20031a6501ace[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Wed Nov 15 15:31:04 2017 +0100
+
+    Add new user parameters in update method
+
+[33mcommit 545d932b24bd546236ba42e4796203ed370e0b24[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Tue Nov 14 12:53:54 2017 +0100
+
+    Change group logic to ['1', '2', '3', 'A']
+
+[33mcommit a818a2bdd69be775b9f2d0d8b87ec06059b750a9[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Tue Nov 14 10:35:45 2017 +0100
+
+    Change getRoom function to match with GEN rooms
+
+[33mcommit 7f3a56237277b9b0809659bce6055299b076f5a0[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Tue Nov 14 09:41:07 2017 +0100
+
+    Change fields name to camelCase convention
+
+[33mcommit 416ec2e30edbda9b0a06d8cf4de5567c1fbf06b5[m
+Merge: c5a93fc 4e1021e
+Author: borga <borgaaydin@gmail.com>
+Date:   Tue Nov 14 09:36:33 2017 +0100
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       config.json
+
+[33mcommit c5a93fc4f54d08f0a9c0992891bdd967747e83f2[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Tue Nov 14 09:35:47 2017 +0100
+
+    cleanup
+
+[33mcommit 4e1021e48cfb24cc75d87408d31d03d70389e464[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Tue Nov 14 08:28:50 2017 +0100
+
+    Change user collection name
+
+[33mcommit ef9106ca49c13d25ae2094ee864efcadb0ab377b[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Tue Nov 7 17:26:52 2017 +0100
+
+    Update courses extract from TC net 2
+
+[33mcommit 192292a5cea6cdddf3a6800681d89ea93be28f26[m
+Author: LeoMouyna <mouynaleo@gmail.com>
+Date:   Fri Oct 27 09:17:36 2017 +0200
+
+    Add html courses parsing
+
+[33mcommit ee7bba54bebc178b993f12ede46be2391a3fc365[m
+Author: Pierre Kuhner <pkuhner@users.noreply.github.com>
+Date:   Fri Oct 20 09:19:44 2017 +0200
+
+    Update .gitignore
+
+[33mcommit 7b1694b971a77ec6bf8a8a9908c0a9054134a20f[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Tue Oct 17 16:52:34 2017 +0200
+
+    readme fix
+
+[33mcommit 5c41cf9f02cf115425cf92c9e692f4ba0683d253[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Tue Oct 17 16:51:55 2017 +0200
+
+    initial commit
+
+[33mcommit dd87ea21c236f6ac06677ed8d41290db0b6f40b7[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Tue Oct 17 16:50:54 2017 +0200
+
+    initial commit
+
+[33mcommit 76d4b96bc6120ebe473a84f423d9977c630fc77c[m
+Author: borga <borgaaydin@gmail.com>
+Date:   Tue Oct 17 16:50:12 2017 +0200
+
+    initial commit
