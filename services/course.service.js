@@ -124,7 +124,7 @@ function getRollcallList(course_id) {
                     if (err) deferred.reject(err.name + ': ' + err.message);
 
                     students = _.map(students, function (student) {
-                        return _.omit(student, ['hash', 'subjects', 'isTeacher']);
+                        return _.omit(student, ['hash', 'subjects', 'isTeacher', 'absences']);
                     });
 
                     deferred.resolve(students);
