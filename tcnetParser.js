@@ -29,7 +29,7 @@ function getProf(line) {
 
 function getTimestamp(stringDate, stringHour) {
     //Add ms
-    var adding = parseInt(stringHour)*3600;
+    var adding = parseInt(stringHour)*60000;
     return Date.parse(stringDate)+adding;
 }
 
