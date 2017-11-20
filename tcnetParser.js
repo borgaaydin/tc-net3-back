@@ -27,6 +27,12 @@ function getProf(line) {
     return line.split(/[\[\]]/)[1].split(", ")
 }
 
+function getTimestamp(stringDate, stringHour) {
+    //Add ms
+    var adding = parseInt(stringHour)*60000;
+    return Date.parse(stringDate)+adding;
+}
+
 function getYearAndGroup(yearLine, groupLine) {
     var groups = [groupLine];
     if (groupLine === "0") groups.push("1", "2", "3");
@@ -71,15 +77,14 @@ function getCourses() {
                         "type": getType(elements[2]),
                         "number": elements[3],
                         "group": getYearAndGroup(elements[0], elements[4]).group,
-                        "date": Date.parse(elements[5]),
-                        "startTime": elements[6],
-                        "endTime": elements[7],
+                        "startTime": getTimestamp(elements[5], elements[6]),
+                        "endTime": getTimestamp(elements[5], elements[7]),
                         "room": getRoom(elements[8]),
                         "professor": getProf(elements[9]),
                         "absent": [],
                         "present": []
                     };
-                    if (course.date > Date.now()) courseList.push(course);
+                    if (course.startTime > Date.now()) courseList.push(course);
                 });
                 deferred.resolve(courseList);
             } else {
