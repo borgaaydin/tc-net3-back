@@ -145,6 +145,9 @@ function rollCall(course_id, data, user) {
 
         if (course) {
             db.courses.updateById(course._id, {set: {"present": data.present, "absent": data.absent}});
+            data.absent.forEach(function (student){
+                db.users.updateById(student._id, {$push: {"absences": course}});
+            });
         } else {
             deferred.resolve();
         }
