@@ -12,6 +12,7 @@ var service = {};
 service.authenticate = authenticate;
 service.getAll = getAll;
 service.getById = getById;
+service.getMyAbsences = getMyAbsences;
 service.create = create;
 service.update = update;
 service.delete = _delete;
@@ -81,6 +82,24 @@ function getById(_id) {
         if (user) {
             // return user (without hashed password)
             deferred.resolve(_.omit(user, 'hash'));
+        } else {
+            // user not found
+            deferred.resolve();
+        }
+    });
+
+    return deferred.promise;
+}
+
+function getMyAbsences(_id) {
+    var deferred = Q.defer();
+
+    db.users.findById(_id, function(err, user) {
+        if (err) deferred.reject(err.name + ': ' + err.message);
+
+        if (user) {
+            // return user (without hashed password)
+            deferred.resolve(user.absences);
         } else {
             // user not found
             deferred.resolve();

@@ -78,13 +78,13 @@ function updateDatabase() {
 }
 
 function getTodaysCourseList(user) {
-    console.log(user);
     var deferred = Q.defer();
 
     var start = new Date();
     start.setHours(0,0,0,0);
 
     var end = new Date();
+    end.setDate(end.getDate()+1);
     end.setHours(23,59,59,999);
 
     db.courses.find({startTime: {$gte: start.getTime(), $lt: end.getTime()}, professor: user.tri}).toArray(function (err, courses) {

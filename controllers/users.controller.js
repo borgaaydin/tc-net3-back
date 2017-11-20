@@ -12,6 +12,7 @@ router.post('/authenticate', authenticate);
 router.post('/register', register);
 router.get('/', guard.check(['ens']), getAll);
 router.get('/current', getCurrent);
+router.get('/current/absences', getMyAbsences);
 router.put('/:_id', update);
 router.delete('/:_id', _delete);
 
@@ -58,6 +59,20 @@ function getCurrent(req, res) {
         .then(function (user) {
             if (user) {
                 res.send(user);
+            } else {
+                res.sendStatus(404);
+            }
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
+}
+
+function getMyAbsences(req, res) {
+    userService.getMyAbsences(req.user.sub)
+        .then(function (absences) {
+            if (absences) {
+                res.send(absences);
             } else {
                 res.sendStatus(404);
             }
