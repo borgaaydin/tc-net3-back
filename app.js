@@ -1,4 +1,5 @@
 require('rootpath')();
+require('dotenv').config({silent: true})
 var express = require('express');
 var app = express();
 var compression = require('compression');
@@ -8,6 +9,7 @@ var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var schedule = require('node-schedule');
 var config = require('config.json');
+config.connectionString = "mongodb://" + process.env.MONGO_HOST + ":27017/tc-net3-users";
 var parsertcnet2 = require("./tcnetParser");
 var courseService = require('services/course.service');
 
@@ -50,4 +52,4 @@ var j = schedule.scheduleJob('0 1 * * *', function(){
     courseService.updateDatabase();
 });
 
-courseService.initDatabase();
+courseService.updateDatabase();
