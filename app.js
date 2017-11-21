@@ -3,6 +3,7 @@ require('dotenv').config({silent: true})
 var express = require('express');
 var app = express();
 var compression = require('compression');
+var cors = require('cors');
 var helmet = require('helmet');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
@@ -13,6 +14,7 @@ var parsertcnet2 = require("./tcnetParser");
 var courseService = require('services/course.service');
 
 app.use(helmet());
+app.use(cors());
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
