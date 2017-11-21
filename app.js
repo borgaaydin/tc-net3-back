@@ -4,7 +4,6 @@ var express = require('express');
 var app = express();
 var compression = require('compression');
 var helmet = require('helmet');
-var cors = require('cors');
 var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var schedule = require('node-schedule');
@@ -15,7 +14,6 @@ var courseService = require('services/course.service');
 
 app.use(helmet());
 app.use(compression());
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
