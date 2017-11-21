@@ -16,3 +16,19 @@ docker run --name mongo-front -p 27017:27017 mongo
 
 #### This will start a server on port 4000
 `node app.js`
+
+## Deploying using docker
+
+### MongoDB container
+
+```
+docker run --name tc-net3-mongo -p 27017:27017 mongo
+```
+
+### Back-end container
+
+`MONGO_HOST` and `link` parameter must match the name of the MongoDB container.
+
+```
+docker run -it --name tc-net3-back -p 4000:4000 -e MONGO_HOST=tc-net3-mongo --link tc-net3-mongo pkuhner/tc-net3-back
+```
