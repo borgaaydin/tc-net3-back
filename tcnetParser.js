@@ -1,6 +1,9 @@
+require('dotenv').config({silent: true})
 var Q = require('q');
 const http = require('http');
 var auth = require('./auth.json');
+auth.name = process.env.TC_NET2_USER;
+auth.password = process.env.TC_NET2_PASSWORD;
 var request = require('request');
 
 function getSubject(line) {

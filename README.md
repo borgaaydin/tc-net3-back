@@ -30,5 +30,5 @@ docker run --name tc-net3-mongo -p 27017:27017 mongo
 `MONGO_HOST` and `link` parameter must match the name of the MongoDB container.
 
 ```
-docker run -it --name tc-net3-back -p 4000:4000 -e MONGO_HOST=tc-net3-mongo --link tc-net3-mongo pkuhner/tc-net3-back
+docker run -it --name tc-net3-back -p 4000:4000 -e TC_NET2_USER=<USERNAME> -e TC_NET2_PASSWORD=<PASSWORD> -e MONGO_HOST=tc-net3-mongo --link tc-net3-mongo pkuhner/tc-net3-back
 ```
