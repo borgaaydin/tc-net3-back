@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+if [[ $MONGO_HOST ]]
+then
+    docker cp ./test/courses.json $MONGO_HOST:courses.json
+    docker cp ./test/subjects.json $MONGO_HOST:subjects.json
+    docker cp ./test/users.json $MONGO_HOST:users.json
+    docker exec -it $MONGO_HOST mongoimport -d tc-net3-test -c courses --drop --file courses.json
+    docker exec -it $MONGO_HOST mongoimport -d tc-net3-test -c subjects --drop --file subjects.json
+    docker exec -it $MONGO_HOST mongoimport -d tc-net3-test -c users --drop --file users.json
+else
+    mongoimport -d tc-net3-test -c courses --drop --file ./test/courses.json
+    mongoimport -d tc-net3-test -c subjects --drop --file ./test/subjects.json
+    mongoimport -d tc-net3-test -c users --drop --file ./test/users.json
+fi

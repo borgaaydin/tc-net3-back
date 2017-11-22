@@ -9,7 +9,10 @@ var bodyParser = require('body-parser');
 var expressJwt = require('express-jwt');
 var schedule = require('node-schedule');
 var config = require('config.json');
-config.connectionString = "mongodb://" + process.env.MONGO_HOST + ":27017/tc-net3-users";
+config.connectionString = "mongodb://" + ( process.env.MONGO_URL || "localhost" ) + ":27017/tc-net3-users";
+if ( process.env.NODE_ENV === 'test' ) {
+    config.connectionString = "mongodb://" + ( process.env.MONGO_URL || "localhost" ) + ":27017/tc-net3-test"
+}
 var parsertcnet2 = require("./tcnetParser");
 var courseService = require('services/course.service');
 
@@ -48,8 +51,12 @@ var server = app.listen(port, function () {
     console.log('Server listening on port ' + port);
 });
 
-var j = schedule.scheduleJob('0 1 * * *', function(){
-    courseService.updateDatabase();
-});
+if ( process.env.NODE_ENV !== 'test' ) {
+    var j = schedule.scheduleJob('0 1 * * *', function(){
+        courseService.updateDatabase();
+    });
 
-courseService.updateDatabase();
+    courseService.updateDatabase();
+}
+
+module.exports = app;
