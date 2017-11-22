@@ -23,7 +23,7 @@ before_deploy:
 - ssh-add /tmp/deploy_rsa
 deploy:
   provider: script
-  script: ssh $DEPLOY_USER@$PRODUCTION_SERVER "$DEPLOY_PATH/deploy.sh $TRAVIS_COMMIT"
+  script: ssh $DEPLOY_USER@$DEPLOY_HOST "$DEPLOY_PATH/deploy.sh $TRAVIS_COMMIT"
   on:
     branch: master
 env:
