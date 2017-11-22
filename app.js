@@ -15,6 +15,13 @@ if ( process.env.NODE_ENV === 'test' ) {
 }
 var parsertcnet2 = require("./tcnetParser");
 var courseService = require('services/course.service');
+var configureVersion = require('version-healthcheck').configure;
+
+var version = configureVersion({
+    callback: function customVersion(req, res) {
+    },
+    buildPath: 'BUILD'
+});
 
 app.use(helmet());
 app.use(cors());
@@ -33,7 +40,7 @@ app.use(expressJwt({
         }
         return null;
     }
-}).unless({ path: ['/users/authenticate', '/users/register'] }));
+}).unless({ path: ['/version', '/users/authenticate', '/users/register'] }));
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
@@ -44,6 +51,7 @@ app.use(function (err, req, res, next) {
 // routes
 app.use('/users', require('./controllers/users.controller'));
 app.use('/courses', require('./controllers/courses.controller'));
+app.get('/version', version);
 
 // start server
 var port = process.env.NODE_ENV === 'production' ? 80 : 4000;

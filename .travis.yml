@@ -18,7 +18,7 @@ before_script:
 after_succes:
     - export SSHPASS=$DEPLOY_PASS
     - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH "git pull && git checkout -qf $TRAVIS_COMMIT"
-    - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH "yarn install && pm2 restart app"
+    - sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH "yarn install && echo $(date) > BUILD && pm2 restart app"
 
 env:
   global:
