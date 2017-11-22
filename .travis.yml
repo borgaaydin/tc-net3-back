@@ -8,7 +8,7 @@ addons:
     packages:
     - sshpass
   ssh_known_hosts:
-  - $PRODUCTION_SERVER
+  - tc-net3.pcksr.net
 before_script:
 - mongoimport -d tc-net3-test -c courses --drop --file test/courses.json
 - mongoimport -d tc-net3-test -c subjects --drop --file test/subjects.json
