@@ -11,9 +11,12 @@ before_script:
 - mongoimport -d tc-net3-test -c courses --drop --file test/courses.json
 - mongoimport -d tc-net3-test -c subjects --drop --file test/subjects.json
 - mongoimport -d tc-net3-test -c users --drop --file test/users.json
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x ./deploy.sh
 deploy:
   provider: script
-  script: deploy.sh
+  script: ./deploy.sh
   on:
     branch: master
 env:
