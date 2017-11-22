@@ -15,13 +15,7 @@ if ( process.env.NODE_ENV === 'test' ) {
 }
 var parsertcnet2 = require("./tcnetParser");
 var courseService = require('services/course.service');
-var configureVersion = require('version-healthcheck').configure;
-
-var version = configureVersion({
-    callback: function customVersion(req, res) {
-    },
-    buildPath: 'BUILD'
-});
+var version = require('version-healthcheck');
 
 app.use(helmet());
 app.use(cors());
