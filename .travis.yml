@@ -11,10 +11,11 @@ before_script:
 - mongoimport -d tc-net3-test -c courses --drop --file test/courses.json
 - mongoimport -d tc-net3-test -c subjects --drop --file test/subjects.json
 - mongoimport -d tc-net3-test -c users --drop --file test/users.json
-after_succes:
-- export SSHPASS=$DEPLOY_PASS
-- sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH "git pull && git checkout -qf $TRAVIS_COMMIT"
-- sshpass -e ssh $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH "yarn install && (echo $(date) > BUILD) && pm2 restart app"
+deploy:
+  provider: script
+  script: deploy.sh
+  on:
+    branch: master
 env:
   global:
   - secure: CMZUuKg39hIa1ZwMcuAipPnPJ5YHfvj3mY4yXSkuTtNqPsGLJ3hOh/DVMv2ZoBMH059CFohghtPCxVmbeAWmbh36n7fNzTotLeSZdwE59VDRqwf/d8K78dG3AGpcbw9zcZq7nX2IteI5fId/ciiKhAm40twO2mHziAD5Bvuc+cFdNlaCJZxuoC8BKrjNZu++1aiMYZ6Bq+Bz/UoJCUKfDgLrkDIPjL/LCgvPysSB5NXF8nIz3Z+0ylmtUmMlItzMqaSSZO56u0Gg7Lu2soEVYQGSretEnhRjsjAh1K5fzIjRa+VFi4sspTlttokO6ZqkNItrER2HZXiy4Q284DxsdmH5DkbWpWfSe3mVhM6nerJ+qlEpuUNHodDQl9rinVtohIYXUkrBClk//k0ogMTZ2J70+nE+2Mc3yWkUtVd43maEMTdny5Tzj5PRPgCo5Q687T56v3ybb4Bdx3ceQFCO+glA6d0Nr3ytqw4nmbGE8ZYNDLfarhk0Rvyns9EJNhNiWCQNIg/lwV6lcObBTWn3hys+tcvvOpTdNT76fVe+yJrncd7yzAFenltWb6eeOpRitFwKknFX6Fv+oTJwO5rbyAcp6qNSm7kND3zfeJgpE/mj3kuwVjUokR0DgFuomcY3fOrQhv675ibhdui1CRJ3wgI9Q7dGLO7XBoNV6hAFL0Q=
