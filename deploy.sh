@@ -24,7 +24,16 @@ else
     exit 1
 fi
 
-echo "Updating commit ID in last.build..."
+echo "Saving last build date in last.build.date..."
+echo $(cat config/BUILD) > last.build.date
+if [ $? -eq 0 ]; then
+    echo "OK"
+else
+    echo "FAIL"
+    exit 1
+fi
+
+echo "Saving last build commit ID in last.build..."
 echo $(git rev-parse HEAD) > last.build
 if [ $? -eq 0 ]; then
     echo "OK"
@@ -71,7 +80,6 @@ fi
 
 echo "Updating build date..."
 echo $(date) > config/BUILD
-echo $(date) > last.build.date
 if [ $? -eq 0 ]; then
     echo "OK"
 else
