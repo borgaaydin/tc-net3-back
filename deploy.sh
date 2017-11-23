@@ -1,11 +1,12 @@
 echo "Dumping current database..."
-docker exec -e $2 mongodump -d $3 -o $3.json
+docker exec $2 mongodump -d $3 -o $3
+docker exec $2 mongodump --archive=$3.gz --gzip --db $3
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
 
 echo "Copying dump on host..."
-docker cp $2:$3.json $1.json
+docker cp $2:$3.gz $(git rev-parse HEAD).gz
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
