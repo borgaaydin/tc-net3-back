@@ -10,9 +10,9 @@ addons:
   ssh_known_hosts:
   - tc-net3.pcksr.net
 before_script:
-- mongoimport -d tc-net3-test -c courses --drop --file test/courses.json
-- mongoimport -d tc-net3-test -c subjects --drop --file test/subjects.json
-- mongoimport -d tc-net3-test -c users --drop --file test/users.json
+- mongoimport -d DB_TEST -c courses --drop --file test/courses.json
+- mongoimport -d DB_TEST -c subjects --drop --file test/subjects.json
+- mongoimport -d DB_TEST -c users --drop --file test/users.json
 script:
 - cd $TRAVIS_BUILD_DIR
 - chmod +x ./deploy.sh
@@ -23,11 +23,13 @@ before_deploy:
 - ssh-add /tmp/deploy_rsa
 deploy:
   provider: script
-  script: ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && ./deploy.sh $TRAVIS_COMMIT"
+  script: ssh $DEPLOY_USER@$DEPLOY_HOST "cd $DEPLOY_PATH && ./deploy.sh $TRAVIS_COMMIT $MONGO_CONTAINER $DB_PROD"
   on:
     branch: master
 env:
   global:
+  - DB_TEST=tc-net3-test
+  - DB_PROD=tc-net3-users
   - secure: CMZUuKg39hIa1ZwMcuAipPnPJ5YHfvj3mY4yXSkuTtNqPsGLJ3hOh/DVMv2ZoBMH059CFohghtPCxVmbeAWmbh36n7fNzTotLeSZdwE59VDRqwf/d8K78dG3AGpcbw9zcZq7nX2IteI5fId/ciiKhAm40twO2mHziAD5Bvuc+cFdNlaCJZxuoC8BKrjNZu++1aiMYZ6Bq+Bz/UoJCUKfDgLrkDIPjL/LCgvPysSB5NXF8nIz3Z+0ylmtUmMlItzMqaSSZO56u0Gg7Lu2soEVYQGSretEnhRjsjAh1K5fzIjRa+VFi4sspTlttokO6ZqkNItrER2HZXiy4Q284DxsdmH5DkbWpWfSe3mVhM6nerJ+qlEpuUNHodDQl9rinVtohIYXUkrBClk//k0ogMTZ2J70+nE+2Mc3yWkUtVd43maEMTdny5Tzj5PRPgCo5Q687T56v3ybb4Bdx3ceQFCO+glA6d0Nr3ytqw4nmbGE8ZYNDLfarhk0Rvyns9EJNhNiWCQNIg/lwV6lcObBTWn3hys+tcvvOpTdNT76fVe+yJrncd7yzAFenltWb6eeOpRitFwKknFX6Fv+oTJwO5rbyAcp6qNSm7kND3zfeJgpE/mj3kuwVjUokR0DgFuomcY3fOrQhv675ibhdui1CRJ3wgI9Q7dGLO7XBoNV6hAFL0Q=
   - secure: jqqIEGXHDGsTiDrawco5ropP0WeNhxYUhFHNASX/QQe7YSIN+7WSoKXXpmyPj0HtVtcFOqrLbPtx+LERJx6o0Fx5RrRPFhJgX9kz/VHz4wGHbnLINtycNgVRx9qx00VtMfspiVny6g0tug0Y7W/K4FqnC97PzXyxqAPifrAXDcYHJDEjjDFrGrubO/FHFXm+kFx6AFU61605OizObasfmSHR+Jh0BA3dhkvMIEo/Wk09erqXPqaNAUn24lVwWM4DgYNdMY6zS917yrzwVARhIzHVUCe95+ErjfQHT5svt8p7+XNvmyv/6LVXZaOtCXEiV3tXUcUPUpGutk/Uz+X3PtlszkntE7QARB22D7fwGENtRoIOh8mdUlAcrZWJZfAL6O48xaC54hIxcrlUKnupsAkPyqdj0N7euF4QebNQwosvc4CK19jxbON1B+90E/TqQMS+Mot25lKPqkmywKjkKwd0Gi9YpLixCv22XIQMxiVmcZhpEA3MqyjQ8TMQw8ZYxVgSqN0mFKmdbDSHI7O9HQVJfbfthnS7uQClNrd50sCswxUyjJX6yX0fnes1bVnAXU41oq29JmMkwexulrrRrq3PUr21t3HkW/BfEzWO/rt128mDj3CmdfuDByYTFaFkL61WGepyNft165CyO9tX5U2GeoHSegia9HW9Ks+aHvg=
   - secure: jDrOaxoUVHoAWP+ietSx03Rud8h5YwN1yo7X/FEjxJUt7RjLHgM2jzqP+b+SuJVG4bnYkRPlO5hX1A7fNq1fbFEELKetXs4KGLYTJNQoiNAmCjIs3p2AjkOIMHW9+D5Q+ry3HkxZQ00t7ayGcIOglO4F2+r+p9Uw1f1IH22NzjIZCQz9lq2P2zid/sGgob+PDnXNC1aw9FPkBHlReJDodbezjDjVcrjLfiVvh0KdbcYfY+FrP88SygSHnQD19i0o6O8yFNXIfQAhqeyPDFnKrQ3LtMjHyWqjdP2JbQvGXhnvY5mw0ld0VSU5DG16NfzhRVIPbK32mDx5Q+AAzLNVlk/ecfofp3xdtTYQFEg1xZ5cX4Mm7C7tjXsNiFpkpLcPSp3THszkEsx4toAIVxTJ8DE97tMdws+EDcj+oAjIZx/nVOCsbz+/pw7cuGwCsDPgYwXZT2ziTABevqpPXH1JSzotr+TpZc6TCQLkwYHauvOHXp/5/CQQFybo0bCVV6uD4670h48LxHvShkzxqMcIc4Fmt9KlG5WBDTbXqeNODdwjj/XmpmC8wmzHW9el/dfJsVfCcouJu5LmInVhxhjQsU436h8rpQ61lPVfS5p1k+dFYSXJ1lCQwjH6qGySZHl/Kk5kkeYVXEaF22TD2W2znw7DXH5O+9Oj/hpNQ1dJvfw=
