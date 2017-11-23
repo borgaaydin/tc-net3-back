@@ -5,19 +5,19 @@ if [ $? -eq 0 ]; then
 fi
 
 echo "Copying database dump to mongo container..."
-docker cp $(cat last.build).gz $2:backup.gz
+docker cp $(cat last.build).gz $1:backup.gz
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
 
 echo "Restauring dump..."
-docker exec $2 mongorestore --drop --gzip --archive=backup.gz --db $3
+docker exec $1 mongorestore --drop --gzip --archive=backup.gz
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
 
 echo "Checking out last build..."
-git checkout -qf $(echo last.build)
+git checkout -qf $(cat last.build)
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
@@ -35,7 +35,7 @@ if [ $? -eq 0 ]; then
 fi
 
 echo "Updating build date..."
-(echo $(date) > config/BUILD)
+(echo $(cat last.build.date) > config/BUILD)
 if [ $? -eq 0 ]; then
     echo "OK"
 fi

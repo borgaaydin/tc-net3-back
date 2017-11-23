@@ -49,7 +49,8 @@ if [ $? -eq 0 ]; then
 fi
 
 echo "Updating build date..."
-(echo $(date) > config/BUILD)
+echo $(date) > config/BUILD
+echo $(date) > last.build.date
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
