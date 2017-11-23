@@ -4,9 +4,6 @@ node_js:
 services:
 - mongodb
 addons:
-  apt:
-    packages:
-    - sshpass
   ssh_known_hosts:
   - tc-net3.pcksr.net
 before_script:

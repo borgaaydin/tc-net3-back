@@ -13,6 +13,7 @@ config.connectionString = "mongodb://" + ( process.env.MONGO_URL || "localhost" 
 if ( process.env.NODE_ENV === 'test' ) {
     config.connectionString = "mongodb://" + ( process.env.MONGO_URL || "localhost" ) + ":27017/tc-net3-test"
 }
+config.secret = process.env.JWT_SECRET || config.secret;
 var parsertcnet2 = require("./tcnetParser");
 var courseService = require('services/course.service');
 var version = require('version-healthcheck');
