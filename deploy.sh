@@ -1,5 +1,12 @@
+echo "Checking if deploying is allowed..."
+if [ -e nodeploy ]; then
+    echo "OK"
+else
+    echo "FAIL"
+    exit 1
+fi
+
 echo "Dumping current database..."
-docker exec $2 mongodump -d $3 -o $3
 docker exec $2 mongodump --archive=$3.gz --gzip --db $3
 if [ $? -eq 0 ]; then
     echo "OK"
