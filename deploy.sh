@@ -1,5 +1,5 @@
 echo "Dumping current database..."
-docker exec $2 mongodump -d $3 > $3.json
+docker exec -e DB=$3 $2 mongodump -d $DB > $DB.json
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
@@ -11,13 +11,13 @@ if [ $? -eq 0 ]; then
 fi
 
 echo "Updating commit ID in last.build..."
-echo $1 > last.build
+echo $(git rev-parse HEAD) > last.build
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
 
 echo "Pulling repository..."
-git pull
+git pull origin master
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
