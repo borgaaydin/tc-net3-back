@@ -34,7 +34,7 @@ app.use(expressJwt({
         }
         return null;
     }
-}).unless({ path: ['/version', '/users/authenticate', '/users/register'] }));
+}).unless({ path: ['/service', '/version', '/users/authenticate', '/users/register'] }));
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
@@ -46,6 +46,8 @@ app.use(function (err, req, res, next) {
 app.use('/users', require('./controllers/users.controller'));
 app.use('/courses', require('./controllers/courses.controller'));
 app.get('/version', version);
+app.use('/service', require('./controllers/cas.controller'));
+
 
 // start server
 var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
