@@ -120,7 +120,7 @@ function getRollcallList(course_id) {
     getCourseById(course_id)
         .then(function (course) {
             if (course) {
-                db.users.find({"subjects.name" : { $in : [course.subject]}}).toArray(function (err, students) {
+                db.users.find({"subjects.name" : { $in : [course.subject]}}).sort({ "lastName": 1 }).toArray(function (err, students) {
                     if (err) deferred.reject(err.name + ': ' + err.message);
 
                     students = _.map(students, function (student) {
