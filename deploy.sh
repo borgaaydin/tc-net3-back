@@ -1,5 +1,5 @@
 echo "Dumping current database..."
-docker exec -e DB=$3 $2 mongodump -d $3 > $DB.json
+docker exec -e $2 mongodump -d $3 -o $3.json
 if [ $? -eq 0 ]; then
     echo "OK"
 fi
