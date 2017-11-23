@@ -1,9 +1,9 @@
 echo "Checking if deploying is allowed..."
 if [ -e nodeploy ]; then
-    echo "OK"
-else
     echo "FAIL"
     exit 1
+else
+    echo "OK"
 fi
 
 echo "Dumping current database..."
