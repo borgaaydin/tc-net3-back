@@ -20,7 +20,7 @@
     "helmet": "^3.x",
     "jsonwebtoken": "^8.x",
     "lodash": "^4.x",
-    "mongodb": "^2.x",
+    "mongodb": "^3.x",
     "mongoskin": "^2.x",
     "morgan": "~1.x",
     "node-sass-middleware": "0.x",
