@@ -25,7 +25,7 @@
     "morgan": "~1.x",
     "node-sass-middleware": "0.x",
     "node-schedule": "^1.x",
-    "pug": "^2.0.0-rc.4",
+    "pug": "^3.0.1",
     "q": "^1.x",
     "request": "^2.x",
     "rootpath": "^0.x",
